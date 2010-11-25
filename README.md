@@ -15,14 +15,23 @@ Read the following to get started.
 
 The module supports Kohana's ORM module and Jelly (other drivers can be added easily).
 
+IMPORTANT: The module supports Jelly's latest, unstable branch.
+
 Kohana ORM
 ----------
 Nothing needs to be done, it's ready for use.
 
-Jelly
------
+Jelly (latest, unstable branch is supported)
+--------------------------------------------
 1. Create a `classes/model/user.php` model and extend the `Model_Auth_User` class.
-2. Define the additional fields for the OAuth providers in the model.
+2. Define additional fields for the OAuth providers in the model, for example:
+
+	'twitter_id' => new Jelly_Field_Integer(array(
+		'unique' => TRUE,
+	)),
+	'facebook_id' => new Jelly_Field_Integer(array(
+		'unique' => TRUE,
+	)),
 
 
 2. step: Enable OAuth providers
