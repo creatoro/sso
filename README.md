@@ -27,10 +27,10 @@ Jelly (only latest, unstable branch is supported)
 2. Define additional fields for the OAuth providers in the model, for example:
 
 	'twitter_id' => new Jelly_Field_Integer(array(
-		'unique' => TRUE,
+	'unique' => TRUE,
 	)),
 	'facebook_id' => new Jelly_Field_Integer(array(
-		'unique' => TRUE,
+	'unique' => TRUE,
 	)),
 
 
