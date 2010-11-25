@@ -21,8 +21,8 @@ Kohana ORM
 ----------
 Nothing needs to be done, it's ready for use.
 
-Jelly (latest, unstable branch is supported)
---------------------------------------------
+Jelly (only latest, unstable branch is supported)
+------------------------------------------------
 1. Create a `classes/model/user.php` model and extend the `Model_Auth_User` class.
 2. Define additional fields for the OAuth providers in the model, for example:
 
