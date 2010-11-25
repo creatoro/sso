@@ -79,7 +79,7 @@ In your controller all you have to do something like this (the example is for Tw
 	$auth->sso('twitter');
 
 
-5. Check is a user is logged in trough a specific OAuth provider
+5. Check if a user is logged in trough a specific OAuth provider
 ================================================================
 
 	$auth->logged_in_sso('twitter');
