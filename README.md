@@ -35,6 +35,19 @@ Enable the `oauth` module in `bootstrap.php` and do the following with the neede
 [1]: https://github.com/shadowhand/apis
 [2]: https://github.com/facebook/php-sdk
 
+Set options for OAuth providers
+-------------------------------
+Copy `oauth.php` from the oauth module's `config` directory to `application/config` directory and edit it.
+
+Set the key and secret for the providers like this (for Facebook use your App Id as key):
+
+	return array(
+		'twitter' => array(
+			'key' => 'xxx',
+			'secret' => 'xxx'
+		),
+	);
+
 
 3. Edit the configuration
 =========================
