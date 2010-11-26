@@ -88,7 +88,11 @@ In your controller all you have to do is something like this (the example is for
 	$auth = Auth::instance();
 
 	// Login the user via Twitter
-	$auth->sso('twitter');
+	if ($auth->sso('twitter'))
+	{
+		// The SSO module returns TRUE if user is logged in, we can issue a redirect in this case
+		$this->request->redirect('');
+	}
 
 
 6. step: Check if a user is logged in via a specific OAuth provider
