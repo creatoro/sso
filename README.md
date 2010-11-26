@@ -69,8 +69,8 @@ Set the key and secret for the providers like this (for Facebook use your App Id
 Copy `sso.php` from the `config` directory to `application/config` directory and edit it.
 
 You will have to set 2 URLs for each provider:
-- callback URL: this will be the page where the user is returned after he / she confirmed the OAuth request
-- login URL: if the login process is interrupted the user will be returned to the login page (this setting isn't used for every provider)
+* callback URL: this will be the page where the user is returned after he / she confirmed the OAuth request
+* login URL: if the login process is interrupted the user will be returned to the login page (this setting isn't used for every provider)
 
 
 5. Login the user
