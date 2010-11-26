@@ -2,15 +2,20 @@
 
 With this module you can login your users via OAuth providers while using the Auth module of Kohana.
 The currently supported providers:
-- Twitter
-- Facebook
+* Twitter
+* Facebook
 
 Thanks goes to Geert De Deckere for his work on OAuth login for [KohanaJobs][0].
 [0]: https://github.com/GeertDD/kohanajobs
 
 Read the following to get started.
 
-1. step: Choose your ORM
+1. Modify your users table
+==========================
+See the included `mysql.sql` file for the correct table structure.
+
+
+2. step: Choose your ORM
 ========================
 
 The module supports Kohana's ORM module and Jelly (other drivers can be added easily).
@@ -34,7 +39,7 @@ Jelly (only latest, unstable branch is supported)
 		)),
 
 
-2. step: Enable OAuth providers
+3. step: Enable OAuth providers
 ===============================
 Enable the `oauth` module in `bootstrap.php` and do the following with the needed providers:
 
@@ -58,7 +63,7 @@ Set the key and secret for the providers like this (for Facebook use your App Id
 	);
 
 
-3. Edit the configuration
+4. Edit the configuration
 =========================
 
 Copy `sso.php` from the `config` directory to `application/config` directory and edit it.
@@ -68,7 +73,7 @@ You will have to set 2 URLs for each provider:
 - login URL: if the login process is interrupted the user will be returned to the login page (this setting isn't used for every provider)
 
 
-4. Login the user
+5. Login the user
 =================
 In your controller all you have to do something like this (the example is for Twitter):
 
@@ -79,7 +84,7 @@ In your controller all you have to do something like this (the example is for Tw
 	$auth->sso('twitter');
 
 
-5. Check if a user is logged in trough a specific OAuth provider
+6. Check if a user is logged in trough a specific OAuth provider
 ================================================================
 
 	$auth->logged_in_sso('twitter');
