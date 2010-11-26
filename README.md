@@ -43,8 +43,8 @@ Jelly (only latest, unstable branch is supported)
 ===============================
 Enable the `oauth` module in `bootstrap.php` and do the following with the needed providers:
 
-- For Twitter: enable the [Twitter API][1] in `bootstrap.php`
-- For Facebook: download the [Facebook SDK][2] and uncompress it to `application/vendor/facebook` directory
+* For Twitter: enable the [Twitter API][1] in `bootstrap.php`
+* For Facebook: download the [Facebook SDK][2] and uncompress it to `application/vendor/facebook` directory
 
 [1]: https://github.com/shadowhand/apis
 [2]: https://github.com/facebook/php-sdk
