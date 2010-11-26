@@ -74,7 +74,9 @@ Copy `sso.php` from the `config` directory to `application/config` directory and
 You will have to set 2 URLs for each provider:
 
 * callback URL: this will be the page where the user is returned after he / she confirmed the OAuth request
-* login URL: if the login process is interrupted the user will be returned to the login page (this setting isn't used for every provider)
+* login URL: if the login process is interrupted the user will be returned to the login page (this setting isn't used for every provider, though it is advisable to have it set)
+
+IMPORTANT: in many cases you want the 2 URLs to be the same as the login completion is not called seperately from initiating the login process. This feature is for only the sake of flexibility.
 
 
 5. step: Login the user
