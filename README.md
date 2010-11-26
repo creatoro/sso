@@ -33,12 +33,12 @@ Nothing needs to be done, it's ready for use.
 1. Create a `classes/model/user.php` model and extend the `Model_Auth_User` class.
 2. Define additional fields for the OAuth providers in the model, for example:
 
-	'twitter_id' => new Jelly_Field_Integer(array(
-		'unique' => TRUE,
-	)),
-	'facebook_id' => new Jelly_Field_Integer(array(
-		'unique' => TRUE,
-	)),
+		'twitter_id' => new Jelly_Field_Integer(array(
+			'unique' => TRUE,
+		)),
+		'facebook_id' => new Jelly_Field_Integer(array(
+			'unique' => TRUE,
+		)),
 
 
 3. step: Enable OAuth providers
@@ -89,7 +89,7 @@ In your controller all you have to do something like this (the example is for Tw
 	$auth->sso('twitter');
 
 
-6. step: Check if a user is logged in trough a specific OAuth provider
-======================================================================
+6. step: Check if a user is logged in ia a specific OAuth provider
+==================================================================
 
 	$auth->logged_in_sso('twitter');
