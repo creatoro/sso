@@ -80,7 +80,7 @@ You will have to set 2 URLs for each provider:
 5. step: Login the user
 =======================
 
-In your controller all you have to do something like this (the example is for Twitter):
+In your controller all you have to do is something like this (the example is for Twitter):
 
 	// Load Auth instance
 	$auth = Auth::instance();
