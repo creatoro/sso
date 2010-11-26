@@ -22,12 +22,10 @@ The module supports Kohana's ORM module and Jelly (other drivers can be added ea
 
 IMPORTANT: The module supports Jelly's latest, unstable branch.
 
-Kohana ORM
-----------
+## Kohana ORM
 Nothing needs to be done, it's ready for use.
 
-Jelly (only latest, unstable branch is supported)
-------------------------------------------------
+## Jelly (only latest, unstable branch is supported)
 1. Create a `classes/model/user.php` model and extend the `Model_Auth_User` class.
 2. Define additional fields for the OAuth providers in the model, for example:
 
@@ -49,8 +47,7 @@ Enable the `oauth` module in `bootstrap.php` and do the following with the neede
 [1]: https://github.com/shadowhand/apis
 [2]: https://github.com/facebook/php-sdk
 
-Set options for OAuth providers
--------------------------------
+## Set options for OAuth providers
 Copy `oauth.php` from the oauth module's `config` directory to `application/config` directory and edit it.
 
 Set the key and secret for the providers like this (for Facebook use your App Id as key):
