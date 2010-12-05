@@ -35,7 +35,7 @@ class SSO_Service_Twitter_Jelly extends SSO_Service_Twitter {
 		catch (Kohana_OAuth_Exception $e)
 		{
 			// Log the error and return false
-			error_log($e);
+			Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
 		    return FALSE;
 		}
 
@@ -45,15 +45,13 @@ class SSO_Service_Twitter_Jelly extends SSO_Service_Twitter {
 		// Check whether that id exists in our users table (provider id field)
 		$user = Jelly::query('user_sso_jelly')->where($provider_field, '=', $data->id)->limit(1)->select();
 
-		// If not, store the new provider id as a new user
-		if ( ! $user->loaded())
-		{
-			// Add user
-			$user->$provider_field = $data->id;
-			$user->save();
-		}
+		// Data to array
+		$data = (array) $data;
 
-		// If yes, log the user in and give him a normal auth session.
+		// Signup if necessary
+		Jelly::query('user_sso_jelly')->signup_sso($user, $data, $provider_field);
+
+		// Give the user a normal login session
 		Auth::instance()->force_login_sso($user->$provider_field, $this->sso_service);
 
 		return TRUE;

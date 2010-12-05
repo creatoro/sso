@@ -17,7 +17,7 @@ class SSO_Service_Facebook_ORM extends SSO_Service_Facebook {
 		catch (FacebookApiException $e)
 		{
 			// Log the error and return false
-			error_log($e);
+			Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
 		    return FALSE;
 		}
 
@@ -25,18 +25,15 @@ class SSO_Service_Facebook_ORM extends SSO_Service_Facebook {
 		$provider_field = $this->sso_service.'_id';
 
 		// Check whether that id exists in our users table (provider id field)
-		$user = ORM::factory('user')->where($provider_field, '=', $data['id'])->find();
+		$user = ORM::factory('user')
+			->where($provider_field, '=', $data['id'])
+			->or_where('email', '=', $data['email'])
+			->find();
 
-		// If not, store the new provider id as a new user
-		if ( ! $user->loaded())
-		{
-			// Add user
-			$user->email = $data['email'];
-			$user->$provider_field = $data['id'];
-			$user->save();
-		}
+		// Signup if necessary
+		ORM::factory('user_sso_orm')->signup_sso($user, $data, $provider_field);
 
-		// If yes, log the user in and give him a normal auth session.
+		// Give the user a normal login session
 		Auth::instance()->force_login_sso($user, $this->sso_service);
 
 		return TRUE;

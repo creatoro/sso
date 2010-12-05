@@ -2,7 +2,7 @@
 /**
  * Jelly auth user for saving users without required fields
  *
- * @package     Jelly/Auth
+ * @package     Jelly/SSO
  * @author      creatoro
  * @copyright   (c) 2010 creatoro
  * @license     http://creativecommons.org/licenses/by-sa/3.0/legalcode
@@ -26,6 +26,15 @@ class Model_User_SSO_Jelly extends Model_Auth_User
 			'facebook_id' => new Jelly_Field_Integer(array(
 				'unique' => TRUE,
 				'default' => NULL,
+			)),
+
+			// Relationships to other models
+            'roles'  => new Jelly_Field_ManyToMany(array(
+				'foreign' => 'roles.id',
+    			'through' => array(
+					'model' => 'roles_users',
+    				'fields' => array('user:foreign_key', 'role:foreign_key'),
+				),
 			)),
         ));
     }

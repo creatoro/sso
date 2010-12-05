@@ -53,9 +53,16 @@ abstract class SSO_Core {
 		}
 	}
 
-	public static function factory($provider, $type)
+	/**
+	 * Return a new SSO object
+	 *
+	 * @param   string  name of the OAuth provider
+	 * @param   string  name of ORM
+	 * @return  object  SSO object
+	 */
+	public static function factory($provider, $orm)
 	{
-		$class = 'SSO_Service_'.$provider.'_'.$type;
+		$class = 'SSO_Service_'.$provider.'_'.$orm;
 
 		return new $class;
 	}

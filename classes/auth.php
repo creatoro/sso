@@ -10,42 +10,13 @@ abstract class Auth extends Kohana_Auth {
 	 */
 	public function sso($provider)
 	{
-		// Set the type
-		if ( ! $type = $this->_config->get('driver'))
+		// Set ORM
+		if ( ! $orm = $this->_config->get('driver'))
 		{
-			$type = 'ORM';
+			$orm = 'ORM';
 		}
 
-		return SSO::factory($provider, $type)->login();
-	}
-
-	/**
-	 * Checks if a user logged in via an OAuth provider
-	 *
-	 * @param   string   provider name (e.g. 'twitter', 'facebook')
-	 * @return  boolean
-	 */
-	public function logged_in_sso($provider = NULL)
-	{
-		// For starters, the user needs to be logged in
-		if ( ! parent::logged_in())
-		{
-			return FALSE;
-		}
-
-		// Get the user from the session
-		$user = $this->get_user();
-
-		if ($provider !== NULL)
-		{
-			// Check for one specific OAuth provider
-			$provider = $provider.'_id';
-			return ! empty($user->$provider);
-		}
-
-		// Otherwise, just check the password field
-		// We don't store passwords for OAuth users
-		return empty($user->password);
+		return SSO::factory($provider, $orm)->login();
 	}
 
 	/**
@@ -57,10 +28,10 @@ abstract class Auth extends Kohana_Auth {
 	 */
 	public function force_login_sso($user, $provider, $mark_session_as_forced = FALSE)
 	{
-		// Set the type
-		if ( ! $type = $this->_config->get('driver'))
+		// Set the ORM
+		if ( ! $orm = $this->_config->get('driver'))
 		{
-			$type = 'ORM';
+			$orm = 'ORM';
 		}
 
 		if ( ! is_object($user))
@@ -68,12 +39,12 @@ abstract class Auth extends Kohana_Auth {
 			$username = $user;
 
 			// Load the user
-			if ($type == 'ORM')
+			if ($orm == 'ORM')
 			{
 				$user = ORM::factory('user');
 				$user->where($this->unique_key($username), '=', $username)->find();
 			}
-			elseif ($type == 'Jelly')
+			elseif ($orm == 'Jelly')
 			{
 				$user = Jelly::query('user')->where($this->unique_key($username, $provider), '=', $username)->limit(1)->select();
 			}
@@ -86,12 +57,12 @@ abstract class Auth extends Kohana_Auth {
 		}
 
 		// Create a new autologin token
-		if ($type == 'ORM')
+		if ($orm == 'ORM')
 		{
 			$token = ORM::factory('user_token');
 			$token->user_id = $user->id;
 		}
-		elseif ($type == 'Jelly')
+		elseif ($orm == 'Jelly')
 		{
 			$token = Jelly::factory('user_token');
 			$token->user = $user->id;

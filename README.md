@@ -1,6 +1,6 @@
 # SSO - single sign on module for OAuth providers
 
-With this module you can login your users via OAuth providers while using the Auth module of Kohana.
+With this module you can login (and sign up) your users via OAuth providers while using the Auth module of Kohana.
 The currently supported providers:
 
 * Twitter
@@ -33,12 +33,20 @@ Nothing needs to be done, it's ready for use.
 1. Create a `classes/model/user.php` model and extend the `Model_Auth_User` class.
 2. Define additional fields for the OAuth providers in the model, for example:
 
-		'twitter_id' => new Jelly_Field_Integer(array(
-			'unique' => TRUE,
-		)),
-		'facebook_id' => new Jelly_Field_Integer(array(
-			'unique' => TRUE,
-		)),
+		public static function initialize(Jelly_Meta $meta)
+		{
+			parent::initialize($meta);
+
+			// Additional fields
+			$meta->fields(array(
+				'twitter_id' => new Jelly_Field_Integer(array(
+					'unique' => TRUE,
+				)),
+				'facebook_id' => new Jelly_Field_Integer(array(
+					'unique' => TRUE,
+				)),
+			));
+		}
 
 
 3. step: Enable OAuth providers
@@ -95,7 +103,18 @@ In your controller all you have to do is something like this (the example is for
 	}
 
 
-6. step: Check if a user is logged in via a specific OAuth provider
-===================================================================
++1: Customize the sign up process
+============================================
 
-	$auth->logged_in_sso('twitter');
+If the user wasn't found during the login provess the current sign up method saves the user in the users as a new
+user. It also merges standard and OAuth accounts if previous account was found by e-mail address.
+
+You can define your own sign up method. Check out the following files depending on your ORM:
+
+### Kohana ORM
+
+Find the `classes/model/user/sso/orm.php` in the module directory.
+
+### Jelly (only latest, unstable branch is supported)
+
+Find the `classes/model/builder/user/sso/jelly.php` in the module directory.
