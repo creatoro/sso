@@ -106,8 +106,8 @@ In your controller all you have to do is something like this (the example is for
 +1: Customize the sign up process
 ============================================
 
-If the user wasn't found during the login provess the current sign up method saves the user in the users as a new
-user. It also merges standard and OAuth accounts if previous account was found by e-mail address.
+If the user wasn't found during the login process the current sign up method saves the user as a new user. It
+also merges the OAuth account with a standard account if they share the same e-mail address.
 
 You can define your own sign up method. Check out the following files depending on your ORM:
 
