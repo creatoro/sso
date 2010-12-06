@@ -43,4 +43,4 @@ class Model_Builder_User_SSO_Jelly extends Jelly_Builder {
 		}
     }
 
-} // End Model_Builder_Role
+} // End Model_Builder_User_SSO_Jelly

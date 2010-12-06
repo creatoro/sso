@@ -27,15 +27,6 @@ class Model_User_SSO_Jelly extends Model_Auth_User
 				'unique' => TRUE,
 				'default' => NULL,
 			)),
-
-			// Relationships to other models
-            'roles'  => new Jelly_Field_ManyToMany(array(
-				'foreign' => 'roles.id',
-    			'through' => array(
-					'model' => 'roles_users',
-    				'fields' => array('user:foreign_key', 'role:foreign_key'),
-				),
-			)),
         ));
     }
 
