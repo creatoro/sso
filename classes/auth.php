@@ -10,13 +10,13 @@ abstract class Auth extends Kohana_Auth {
 	 */
 	public function sso($provider)
 	{
-		// Set ORM
-		if ( ! $orm = $this->_config->get('driver'))
+		// Set Driver
+		if ( ! $driver = $this->_config->get('driver'))
 		{
-			$orm = 'ORM';
+			$driver = 'ORM';
 		}
 
-		return SSO::factory($provider, $orm)->login();
+		return SSO::factory($provider, $driver)->login();
 	}
 
 	/**
@@ -28,10 +28,10 @@ abstract class Auth extends Kohana_Auth {
 	 */
 	public function force_login_sso($user, $provider, $mark_session_as_forced = FALSE)
 	{
-		// Set the ORM
-		if ( ! $orm = $this->_config->get('driver'))
+		// Set the driver
+		if ( ! $driver = $this->_config->get('driver'))
 		{
-			$orm = 'ORM';
+			$driver = 'ORM';
 		}
 
 		if ( ! is_object($user))
@@ -39,12 +39,12 @@ abstract class Auth extends Kohana_Auth {
 			$username = $user;
 
 			// Load the user
-			if ($orm == 'ORM')
+			if ($driver == 'ORM')
 			{
 				$user = ORM::factory('user');
 				$user->where($this->unique_key($username), '=', $username)->find();
 			}
-			elseif ($orm == 'Jelly')
+			elseif ($driver == 'Jelly')
 			{
 				$user = Jelly::query('user')->where($this->unique_key($username, $provider), '=', $username)->limit(1)->select();
 			}
@@ -57,19 +57,18 @@ abstract class Auth extends Kohana_Auth {
 		}
 
 		// Create a new autologin token
-		if ($orm == 'ORM')
+		if ($driver == 'ORM')
 		{
 			$token = ORM::factory('user_token');
 			$token->user_id = $user->id;
 		}
-		elseif ($orm == 'Jelly')
+		elseif ($driver == 'Jelly')
 		{
 			$token = Jelly::factory('user_token');
 			$token->user = $user->id;
 		}
 
 		// Set token data
-
 		$token->expires = time() + $this->_config['lifetime'];
 		$token->save();
 
@@ -94,7 +93,7 @@ abstract class Auth extends Kohana_Auth {
 			return $oauth_provider.'_id';
 		}
 
-		return Validate::email($value) ? 'email' : 'username';
+		return Valid::email($value) ? 'email' : 'username';
 	}
 	
 } // End Auth

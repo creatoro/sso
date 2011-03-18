@@ -46,7 +46,7 @@ abstract class SSO_Core {
 		}
 
 		// Retrieve token if available
-		if ($token = Cookie::get($this->oauth_cookie))
+		if ($token = Session::instance()->get($this->oauth_cookie))
 		{
 			// Get the token from storage
 			$this->oauth_token = unserialize($token);
@@ -57,12 +57,12 @@ abstract class SSO_Core {
 	 * Return a new SSO object
 	 *
 	 * @param   string  name of the OAuth provider
-	 * @param   string  name of ORM
+	 * @param   string  name of driver
 	 * @return  object  SSO object
 	 */
-	public static function factory($provider, $orm)
+	public static function factory($provider, $driver)
 	{
-		$class = 'SSO_Service_'.$provider.'_'.$orm;
+		$class = 'SSO_Service_'.$provider.'_'.$driver;
 
 		return new $class;
 	}

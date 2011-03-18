@@ -12,10 +12,10 @@ class SSO_Service_Twitter_ORM extends SSO_Service_Twitter {
 		if ($this->oauth_token AND $this->oauth_token->token !== Arr::get($_GET, 'oauth_token'))
 		{
 			// Delete the token, it is not valid
-			Cookie::delete($this->oauth_cookie);
+			Session::instance()->delete($this->oauth_cookie);
 
 			// Send the user back to the beginning
-			Request::instance()->redirect(URL::site($this->sso_config['login'], Request::$protocol));
+			Request::current()->redirect(URL::site($this->sso_config['login'], Request::current()));
 		}
 
 		// Get the verifier
@@ -35,7 +35,7 @@ class SSO_Service_Twitter_ORM extends SSO_Service_Twitter {
 		catch (Kohana_OAuth_Exception $e)
 		{
 			// Log the error and return false
-			Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
+			Kohana::$log->add(Log::ERROR, Kohana_Exception::text($e));
 		    return FALSE;
 		}
 

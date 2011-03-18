@@ -56,7 +56,7 @@ abstract class SSO_Service_Facebook extends SSO_Core {
 		}
 
 		// Redirect to provider's login page and ask for e-mail permission
-		Request::instance()->redirect($this->fb->getLoginUrl(array('req_perms' => 'email')));
+		Request::current()->redirect($this->fb->getLoginUrl(array('display' => 'popup', 'req_perms' => 'email')));
 	}
 
 } // End SSO_Service_Facebook

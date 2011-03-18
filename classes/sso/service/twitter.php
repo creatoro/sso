@@ -27,7 +27,7 @@ abstract class SSO_Service_Twitter extends SSO_Core {
 		}
 
 		// Set the callback URL where the user will be returned to
-		$callback = URL::site($this->sso_config['callback'], Request::$protocol);
+		$callback = URL::site($this->sso_config['callback'], Request::current());
 
 		// Add the callback URL to the consumer
 		$this->oauth_consumer->callback($callback);
@@ -36,10 +36,10 @@ abstract class SSO_Service_Twitter extends SSO_Core {
 		$token = $this->oauth_provider->request_token($this->oauth_consumer);
 
 		// Store the request token
-		Cookie::set($this->oauth_cookie, serialize($token));
+		Session::instance()->set($this->oauth_cookie, serialize($token));
 
 		// Redirect to the provider's login page
-		Request::instance()->redirect($this->oauth_provider->authorize_url($token));
+		Request::current()->redirect($this->oauth_provider->authorize_url($token));
 	}
 
 } // End SSO_Service_Twitter

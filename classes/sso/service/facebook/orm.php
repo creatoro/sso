@@ -17,7 +17,7 @@ class SSO_Service_Facebook_ORM extends SSO_Service_Facebook {
 		catch (FacebookApiException $e)
 		{
 			// Log the error and return false
-			Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
+			Kohana::$log->add(Log::ERROR, Kohana_Exception::text($e));
 		    return FALSE;
 		}
 
