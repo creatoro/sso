@@ -6,59 +6,29 @@ The currently supported providers:
 * Twitter
 * Facebook
 
-Thanks goes to Geert De Deckere for his work on OAuth login for [KohanaJobs][0].
-[0]: https://github.com/GeertDD/kohanajobs
+Thanks goes to Geert De Deckere for his work on OAuth login for [KohanaJobs](https://github.com/GeertDD/kohanajobs).
 
 Read the following to get started.
 
 1. step: Modify your users table
 ================================
 
-See the included `mysql.sql` file for the correct table structure.
+See the included `auth-schema-mysql.sql` file for the correct table structure.
 
 
 2. step: Choose your ORM
 ========================
 
-The module supports Kohana's ORM module and Jelly (other drivers can be added easily).
-
-IMPORTANT: The module supports Jelly's latest, unstable branch.
-
-### Kohana ORM
-
-Nothing needs to be done, it's ready for use.
-
-### Jelly (only latest, unstable branch is supported)
-
-1. Create a `classes/model/user.php` model and extend the `Model_Auth_User` class.
-2. Define additional fields for the OAuth providers in the model, for example:
-
-		public static function initialize(Jelly_Meta $meta)
-		{
-			parent::initialize($meta);
-
-			// Additional fields
-			$meta->fields(array(
-				'twitter_id' => new Jelly_Field_Integer(array(
-					'unique' => TRUE,
-				)),
-				'facebook_id' => new Jelly_Field_Integer(array(
-					'unique' => TRUE,
-				)),
-			));
-		}
-
+By default the module supports [Jelly's](https://github.com/creatoro/kohana-jelly-for-Kohana-3.1) `3.1/develop` branch.
+Drivers for Kohana's [ORM](https://github.com/kohana/orm) can be downloaded [here](https://github.com/creatoro/orm-sso).
 
 3. step: Enable OAuth providers
 ===============================
 
-Enable the `oauth` module in `bootstrap.php` and do the following with the needed providers:
+Enable the `oauth` [module](http://github.com/kohana/oauth) in `bootstrap.php` and do the following with the needed providers:
 
-* For Twitter: enable the [Twitter API][1] in `bootstrap.php`
-* For Facebook: download the [Facebook SDK][2] and uncompress it to `application/vendor/facebook` directory
-
-[1]: https://github.com/shadowhand/apis
-[2]: https://github.com/facebook/php-sdk
+* For Twitter: enable the [Twitter API](https://github.com/shadowhand/apis) in `bootstrap.php`
+* For Facebook: download the [Facebook SDK](https://github.com/facebook/php-sdk) and uncompress it to `application/vendor/facebook` directory
 
 ### Set options for OAuth providers
 
@@ -111,10 +81,14 @@ also merges the OAuth account with a standard account if they share the same e-m
 
 You can define your own sign up method. Check out the following files depending on your ORM:
 
+### Jelly
+
+ 1. Copy `module_directory/classes/model/builder/user.php` to `application_directory/classes/model/builder/user.php`.
+ 2. Create a `sso_signup()` method` in `application_directory/classes/model/builder/user.php` and customize it to your needs.
+
+ To get an example on how to create the method check it out in `module_directory/classes/model/builder/auth/user.php`.
+
 ### Kohana ORM
 
-Find the `classes/model/user/sso/orm.php` in the module directory.
-
-### Jelly (only latest, unstable branch is supported)
-
-Find the `classes/model/builder/user/sso/jelly.php` in the module directory.
+ 1. Copy `orm_driver_directory/classes/model/user.php` to `application_directory/classes/model/user.php`.
+ 2. Customize the `sso_signup()` method to your needs.

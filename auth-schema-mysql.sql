@@ -20,19 +20,22 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` varchar(127) NOT NULL,
   `username` varchar(32) NOT NULL DEFAULT '',
-  `twitter_id` int(11) UNSIGNED DEFAULT NULL,
-  `facebook_id` int(11) UNSIGNED DEFAULT NULL,
-  `password` char(50) NOT NULL,
+  `twitter_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `facebook_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `password` varchar(64) NOT NULL,
   `logins` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `last_login` int(10) UNSIGNED,
   PRIMARY KEY  (`id`),
+  UNIQUE KEY `uniq_username` (`username`),
+  UNIQUE KEY `uniq_email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `user_tokens` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
   `user_agent` varchar(40) NOT NULL,
-  `token` varchar(32) NOT NULL,
+  `token` varchar(40) NOT NULL,
+  `type` varchar(100) NOT NULL,
   `created` int(10) UNSIGNED NOT NULL,
   `expires` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY  (`id`),

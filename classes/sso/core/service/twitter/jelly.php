@@ -1,15 +1,24 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class SSO_Service_Twitter_ORM extends SSO_Service_Twitter {
+class SSO_Core_Service_Twitter_Jelly extends SSO_Service_Twitter {
 
 	/**
-	 * Complete the login
+	 * Completes the login and signs up a user if necessary.
 	 *
 	 * @return  boolean
+	 * @uses    Session::instance()
+	 * @uses    Request::current()
+	 * @uses    URL::site
+	 * @uses    Twitter::factory
+	 * @uses    Kohana::$log
+	 * @uses    Log::ERROR
+	 * @uses    Kohana_Exception::text
+	 * @uses    Jelly::factory
+	 * @uses    Auth::instance
 	 */
 	protected function complete_login()
 	{
-		if ($this->oauth_token AND $this->oauth_token->token !== Arr::get($_GET, 'oauth_token'))
+		if ($this->oauth_token AND $this->oauth_token->token !== Request::current()->query('oauth_token'))
 		{
 			// Delete the token, it is not valid
 			Session::instance()->delete($this->oauth_cookie);
@@ -19,7 +28,7 @@ class SSO_Service_Twitter_ORM extends SSO_Service_Twitter {
 		}
 
 		// Get the verifier
-		$verifier = Arr::get($_GET, 'oauth_verifier');
+		$verifier = Request::current()->query('oauth_verifier');
 
 		// Store the verifier in the token
 		$this->oauth_token->verifier($verifier);
@@ -42,19 +51,19 @@ class SSO_Service_Twitter_ORM extends SSO_Service_Twitter {
 		// Set provider field
 		$provider_field = $this->sso_service.'_id';
 
-		// Check whether that id exists in our users table (provider id field)
-		$user = ORM::factory('user_sso_orm')->where($provider_field, '=', $data->id)->find();
-
 		// Data to array
 		$data = (array) $data;
 
+		// Check whether that id exists in our users table (provider id field)
+		$user = Jelly::factory('user')->find_sso_user($provider_field, $data);
+
 		// Signup if necessary
-		ORM::factory('user_sso_orm')->signup_sso($user, $data, $provider_field);
+		$signup = Jelly::factory('user')->sso_signup($user, $data, $provider_field);
 
 		// Give the user a normal login session
-		Auth::instance()->force_login_sso($user, $this->sso_service);
+		Auth::instance()->force_sso_login($signup);
 
 		return TRUE;
 	}
 
-} // End SSO_Service_Twitter_ORM
+} // End SSO_Core_Service_Twitter_Jelly

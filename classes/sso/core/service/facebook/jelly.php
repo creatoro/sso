@@ -1,11 +1,16 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class SSO_Service_Facebook_ORM extends SSO_Service_Facebook {
+class SSO_Core_Service_Facebook_Jelly extends SSO_Service_Facebook {
 
 	/**
-	 * Complete the login
+	 * Completes the login and signs up a user if necessary.
 	 *
 	 * @return  boolean
+	 * @uses    Kohana::$log
+	 * @uses    Log::ERROR
+	 * @uses    Kohana_Exception::text
+	 * @uses    Jelly::factory
+	 * @uses    Auth::instance
 	 */
 	protected function complete_login()
 	{
@@ -16,7 +21,7 @@ class SSO_Service_Facebook_ORM extends SSO_Service_Facebook {
 		}
 		catch (FacebookApiException $e)
 		{
-			// Log the error and return false
+			// Log the error and return FALSE
 			Kohana::$log->add(Log::ERROR, Kohana_Exception::text($e));
 		    return FALSE;
 		}
@@ -25,18 +30,15 @@ class SSO_Service_Facebook_ORM extends SSO_Service_Facebook {
 		$provider_field = $this->sso_service.'_id';
 
 		// Check whether that id exists in our users table (provider id field)
-		$user = ORM::factory('user')
-			->where($provider_field, '=', $data['id'])
-			->or_where('email', '=', $data['email'])
-			->find();
+		$user = Jelly::factory('user')->find_sso_user($provider_field, $data);
 
 		// Signup if necessary
-		ORM::factory('user_sso_orm')->signup_sso($user, $data, $provider_field);
+		$signup = Jelly::factory('user')->sso_signup($user, $data, $provider_field);
 
 		// Give the user a normal login session
-		Auth::instance()->force_login_sso($user, $this->sso_service);
+		Auth::instance()->force_sso_login($signup);
 
 		return TRUE;
 	}
 
-} // End SSO_Service_Facebook_ORM
+} // End SSO_Core_Service_Facebook_Jelly
