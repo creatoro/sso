@@ -3,29 +3,34 @@
 With this module you can login (and sign up) your users via OAuth providers while using the Auth module of Kohana.
 The currently supported providers:
 
-* Twitter
-* Facebook
+ * Twitter
+ * Facebook
 
 Thanks goes to Geert De Deckere for his work on OAuth login for [KohanaJobs](https://github.com/GeertDD/kohanajobs).
 
 Read the following to get started.
 
-1. step: Modify your users table
+
+1st step: Modify your users table
 ============================================
+
 See the included `auth-schema-mysql.sql` file for the correct table structure.
 
 
-2. step: Choose your ORM
+2nd step: Choose your ORM
 ============================================
+
 By default the module supports [Jelly's](https://github.com/creatoro/kohana-jelly-for-Kohana-3.1) `3.1/develop` branch.
 Drivers for Kohana's [ORM](https://github.com/kohana/orm) can be downloaded [here](https://github.com/creatoro/orm-sso).
 
-3. step: Enable OAuth providers
+
+3rd step: Enable OAuth providers
 ============================================
+
 Enable the `oauth` [module](http://github.com/kohana/oauth) in `bootstrap.php` and do the following with the needed providers:
 
-* For Twitter: enable the [Twitter API](https://github.com/shadowhand/apis) in `bootstrap.php`
-* For Facebook: download the [Facebook SDK](https://github.com/facebook/php-sdk) and uncompress it to `application/vendor/facebook` directory
+ * For Twitter: enable the [Twitter API](https://github.com/shadowhand/apis) in `bootstrap.php`
+ * For Facebook: download the [Facebook SDK](https://github.com/facebook/php-sdk) and uncompress it to `application/vendor/facebook` directory
 
 ### Set options for OAuth providers
 
@@ -41,7 +46,7 @@ Set the key and secret for the providers like this (for Facebook use your App Id
 	);
 
 
-4. step: Edit the configuration
+4th step: Edit the configuration
 ============================================
 
 Copy `sso.php` from the `config` directory to `application/config` directory and edit it.
@@ -54,8 +59,9 @@ You will have to set 2 URLs for each provider:
 IMPORTANT: in many cases you want the 2 URLs to be the same as the login completion is not called seperately from initiating the login process. This feature is for only the sake of flexibility.
 
 
-5. step: Login the user
+5th step: Login the user
 ============================================
+
 In your controller all you have to do is something like this (the example is for Twitter):
 
 	// Load Auth instance
@@ -71,6 +77,7 @@ In your controller all you have to do is something like this (the example is for
 
 +1: Customize the sign up process
 ============================================
+
 If the user wasn't found during the login process the current sign up method saves the user as a new user. It
 also merges the OAuth account with a standard account if they share the same e-mail address.
 
