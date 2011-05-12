@@ -12,19 +12,16 @@ Read the following to get started.
 
 1. step: Modify your users table
 ============================================
-
 See the included `auth-schema-mysql.sql` file for the correct table structure.
 
 
 2. step: Choose your ORM
 ============================================
-
 By default the module supports [Jelly's](https://github.com/creatoro/kohana-jelly-for-Kohana-3.1) `3.1/develop` branch.
 Drivers for Kohana's [ORM](https://github.com/kohana/orm) can be downloaded [here](https://github.com/creatoro/orm-sso).
 
 3. step: Enable OAuth providers
 ============================================
-
 Enable the `oauth` [module](http://github.com/kohana/oauth) in `bootstrap.php` and do the following with the needed providers:
 
 * For Twitter: enable the [Twitter API](https://github.com/shadowhand/apis) in `bootstrap.php`
@@ -59,7 +56,6 @@ IMPORTANT: in many cases you want the 2 URLs to be the same as the login complet
 
 5. step: Login the user
 ============================================
-
 In your controller all you have to do is something like this (the example is for Twitter):
 
 	// Load Auth instance
@@ -75,7 +71,6 @@ In your controller all you have to do is something like this (the example is for
 
 +1: Customize the sign up process
 ============================================
-
 If the user wasn't found during the login process the current sign up method saves the user as a new user. It
 also merges the OAuth account with a standard account if they share the same e-mail address.
 
