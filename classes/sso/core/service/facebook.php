@@ -12,6 +12,12 @@ abstract class SSO_Core_Service_Facebook extends SSO_OAuth2 {
 	 */
 	protected $fb;
 
+	/**
+	 * Loads the Facebook SDK.
+	 *
+	 * @return  void
+	 * @uses    Kohana::config
+	 */
 	public function __construct()
 	{
 		// Include Facebook SDK
@@ -33,7 +39,7 @@ abstract class SSO_Core_Service_Facebook extends SSO_OAuth2 {
 	}
 
 	/**
-	 * Attempt to log in a user by using an OAuth provider.
+	 * Attempts to log in a user by using an OAuth provider.
 	 *
 	 * @return  boolean
 	 * @uses    Request::current()
@@ -49,7 +55,7 @@ abstract class SSO_Core_Service_Facebook extends SSO_OAuth2 {
 			$this->fb->setSession($session);
 
 			// Complete login
-			return $this->complete_login($this->sso_service);
+			return $this->complete_login();
 		}
 		elseif ($_GET AND ! Request::current()->query('session'))
 		{

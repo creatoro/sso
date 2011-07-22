@@ -34,7 +34,7 @@ abstract class SSO_Core {
 	}
 
 	/**
-	 * Return a new SSO object.
+	 * Returns a new SSO object.
 	 *
 	 * @param   string  $provider
 	 * @param   string  $driver

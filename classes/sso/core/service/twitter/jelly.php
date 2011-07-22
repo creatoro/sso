@@ -63,6 +63,7 @@ class SSO_Core_Service_Twitter_Jelly extends SSO_Service_Twitter {
 		// Give the user a normal login session
 		Auth::instance()->force_sso_login($signup);
 
+		// Login complete
 		return TRUE;
 	}
 

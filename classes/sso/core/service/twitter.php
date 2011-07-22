@@ -8,7 +8,7 @@ abstract class SSO_Core_Service_Twitter extends SSO_OAuth {
 	protected $sso_service = 'twitter';
 
 	/**
-	 * Attempt to log in a user by using an OAuth provider.
+	 * Attempts to log in a user by using an OAuth provider.
 	 *
 	 * @return  boolean
 	 * @uses    Request::current()
