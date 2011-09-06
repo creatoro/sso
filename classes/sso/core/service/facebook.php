@@ -16,7 +16,9 @@ abstract class SSO_Core_Service_Facebook extends SSO_OAuth2 {
 	 * Loads the Facebook SDK.
 	 *
 	 * @return  void
+	 * @uses    Kohana::find_file
 	 * @uses    Kohana::config
+	 * @uses    Facebook
 	 */
 	public function __construct()
 	{

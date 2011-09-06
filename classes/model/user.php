@@ -23,6 +23,7 @@ class Model_User extends Model_Auth_User {
 	 * @param   string  $provider_field
 	 * @param   array   $data
 	 * @return  Jelly_Model
+	 * @uses    Jelly::query
 	 */
 	public function find_sso_user($provider_field, $data)
 	{
@@ -36,8 +37,9 @@ class Model_User extends Model_Auth_User {
 	 *
 	 * @param   Jelly_Model  $user
 	 * @param   array        $data
-	 * @param   string       $provider
+	 * @param   string       $provider_field
 	 * @return  Jelly_Model
+	 * @uses    Jelly::query
 	 */
 	public function sso_signup(Jelly_Model $user, array $data, $provider_field)
     {

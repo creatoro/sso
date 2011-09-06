@@ -38,7 +38,7 @@ class Model_Builder_Auth_User extends Jelly_Builder {
 	 *
 	 * @param   Jelly_Model  $user
 	 * @param   array        $data
-	 * @param   string       $provider
+	 * @param   string       $provider_field
 	 * @return  Jelly_Model
 	 */
 	public function sso_signup(Jelly_Model $user, array $data, $provider_field)

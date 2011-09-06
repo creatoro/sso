@@ -6,8 +6,8 @@ class SSO_Core_Service_Twitter_Jelly extends SSO_Service_Twitter {
 	 * Completes the login and signs up a user if necessary.
 	 *
 	 * @return  boolean
-	 * @uses    Session::instance()
 	 * @uses    Request::current()
+	 * @uses    Session::instance()
 	 * @uses    URL::site
 	 * @uses    Twitter::factory
 	 * @uses    Kohana::$log
