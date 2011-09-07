@@ -29,7 +29,7 @@ abstract class SSO_Core_Service_Twitter extends SSO_OAuth {
 		}
 
 		// Set the callback URL where the user will be returned to
-		$callback = URL::site($this->sso_config['callback'], Request::current());
+		$callback = URL::site($this->sso_config['callback'], Request::current(), FALSE);
 
 		// Add the callback URL to the consumer
 		$this->oauth_consumer->callback($callback);

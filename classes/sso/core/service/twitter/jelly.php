@@ -24,7 +24,7 @@ class SSO_Core_Service_Twitter_Jelly extends SSO_Service_Twitter {
 			Session::instance()->delete($this->oauth_cookie);
 
 			// Send the user back to the beginning
-			Request::current()->redirect(URL::site($this->sso_config['login'], Request::current()));
+			Request::current()->redirect(URL::site($this->sso_config['login'], Request::current(), FALSE));
 		}
 
 		// Get the verifier
