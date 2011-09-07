@@ -17,7 +17,7 @@ abstract class SSO_Core_Service_Facebook extends SSO_OAuth2 {
 	 *
 	 * @return  void
 	 * @uses    Kohana::find_file
-	 * @uses    Kohana::config
+	 * @uses    Kohana::$config
 	 * @uses    Facebook
 	 */
 	public function __construct()
@@ -26,7 +26,7 @@ abstract class SSO_Core_Service_Facebook extends SSO_OAuth2 {
 		include Kohana::find_file('vendor', 'facebook/src/facebook');
 
 		// Set config
-		$config = Kohana::config('oauth.facebook');
+		$config = Kohana::$config->load('oauth.facebook');
 
 		// Setup Facebook
 		$this->fb = new Facebook(

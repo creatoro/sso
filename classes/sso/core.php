@@ -25,12 +25,12 @@ abstract class SSO_Core {
 	 * Loads the SSO configuration.
 	 *
 	 * @return  void
-	 * @uses    Kohana::config
+	 * @uses    Kohana::$config
 	 */
 	public function __construct()
 	{
 		// Load SSO config
-		$this->sso_config = Kohana::config('sso.'.$this->sso_service);
+		$this->sso_config = Kohana::$config->load('sso.'.$this->sso_service);
 	}
 
 	/**

@@ -26,7 +26,7 @@ abstract class SSO_Core_OAuth extends SSO {
 	 * Sets up everything needed for OAuth.
 	 *
 	 * @return  void
-	 * @uses    Kohana::config
+	 * @uses    Kohana::$config
 	 * @uses    OAuth_Consumer::factory
 	 * @uses    OAuth_Provider::factory
 	 * @uses    Session::instance
@@ -42,7 +42,7 @@ abstract class SSO_Core_OAuth extends SSO {
 		$this->oauth_provider = $this->sso_service;
 
 		// Load the OAuth configuration for this OAuth provider
-		$oauth_config = Kohana::config('oauth.'.$this->oauth_provider);
+		$oauth_config = Kohana::$config->load('oauth.'.$this->oauth_provider);
 
 		// Create a consumer from the OAuth config
 		$this->oauth_consumer = OAuth_Consumer::factory($oauth_config);
