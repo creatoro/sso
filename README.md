@@ -20,7 +20,7 @@ See the included `auth-schema-mysql.sql` file for the correct table structure.
 2nd step: Choose your ORM
 ============================================
 
-By default the module supports [Jelly's](https://github.com/creatoro/kohana-jelly-for-Kohana-3.1) `3.1/develop` branch.
+By default the module supports [Jelly](https://github.com/creatoro/jelly).
 Drivers for Kohana's [ORM](https://github.com/kohana/orm) can be downloaded [here](https://github.com/creatoro/orm-sso).
 
 
